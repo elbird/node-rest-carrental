@@ -8,6 +8,8 @@
   "dependencies": {
     "restify": ">=2.3.4",
     "restful": ">=0.4",
-    "soap": ">=0.2.7"
+    "soap": ">=0.2.7",
+    "q": ">=0.9.2",
+    "settings": ">=0.1.0"
   }
 }
