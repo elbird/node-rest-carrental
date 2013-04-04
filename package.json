@@ -1,0 +1,13 @@
+{
+  "name": "node-rest-carrental",
+  "version": "0.1.0",
+  "engine": {
+    "node": ">= 0.8"
+  },
+  "homepage": "https://github.com/sebastianvogel/node-rest-carrental",
+  "dependencies": {
+    "restify": ">=2.3.4",
+    "restful": ">=0.4",
+    "soap": ">=0.2.7"
+  }
+}
