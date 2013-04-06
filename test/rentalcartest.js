@@ -1,6 +1,8 @@
 var chai = require("chai"),
 	assert = chai.assert,
-	RentalCar = require('../lib/rentalcar');
+	Q = require('q'),
+	RentalCar = require('../lib/rentalcar'),
+	dfdTestCar = Q.defer();
 
 describe('RentalCar', function () {
 	"use strict";
@@ -11,10 +13,14 @@ describe('RentalCar', function () {
 				model: "A8",
 				kw: 200,
 				year: 2012,
-				price: 250.5
+				price: 250.5,
+				currency: "USD"
 			}, function (err, car) {
 				if (err) {
+					dfdTestCar.reject(err);
 					done(err);
+				} else {
+					dfdTestCar.resolve(car);
 				}
 				RentalCar.get(car.id, function (err, sameCar) {
 					if (err) {
@@ -24,6 +30,33 @@ describe('RentalCar', function () {
 					done();
 				});
 			});
+		});
+	});
+	describe('#update()', function () {
+		it('should update a RentalCar without an error and get it again', function (done) {
+			var testCar;
+			dfdTestCar.promise.then(function (result){
+				testCar = result;
+				RentalCar.update(testCar.id, {
+					make: "Audi",
+					model: "Golf",
+					kw: 200,
+					year: 2012,
+					price: 250.5
+				}, function (err, result) {
+					if (err) {
+						done(err);
+					}
+					RentalCar.get(result.id, function (err, updatedCar) {
+						if (err) {
+							done(err);
+						}
+						assert.strictEqual(testCar.id, updatedCar.id, "the car ids are the same");
+						assert.notEqual(testCar.make, updatedCar.make, "the cars make are not the same");
+						done();
+					});
+				});
+			}).fail(done);
 		});
 	});
 });
