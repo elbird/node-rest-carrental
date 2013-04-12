@@ -38,7 +38,7 @@ describe('RentalCar', function () {
 			dfdTestCar.promise.then(function (result){
 				testCar = result;
 				RentalCar.update(testCar.id, {
-					make: "Audi",
+					make: "VW",
 					model: "Golf",
 					kw: 200,
 					year: 2012,
