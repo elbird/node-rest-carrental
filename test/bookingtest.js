@@ -1,9 +1,10 @@
 var chai = require("chai"),
 	assert = chai.assert,
 	Q = require('q'),
-	User = require('../lib/user'),
-	Booking = require('../lib/booking'),
-	RentalCar = require('../lib/rentalcar'),
+	fixtures = require('../lib/fixtures'),
+	User = fixtures.User,
+	Booking = fixtures.Booking,
+	RentalCar = fixtures.RentalCar,
 	dfdUser = Q.ninvoke(User, "create", {
 				firstname: "Test",
 				lastname: "Test2",
@@ -153,11 +154,12 @@ describe('Booking', function () {
 			var booking;
 			dfdBookingWithCar.then(function (result) {
 				booking = result;
+				var rentalCarId = booking.rentalcar_id;
 				return Q.ninvoke(RentalCar, 'get', booking.rentalcar_id);
 			}).then(function (rentalCar) {
 				var bookingId = Booking.normalizeId(booking.id);
 				assert.include(rentalCar.booking_ids, bookingId, "before destroy: the rentalCars's booking_ids contain the id of the current booking");
-				Booking.destroy(booking.id, function () {
+				booking.destroy(function () {
 					rentalCar.reload(function (err, rentalCar) {
 						assert(rentalCar.booking_ids.indexOf(bookingId) === -1, "after destroy: the booking id is not in the rentalCars's booking_ids");
 						done();
