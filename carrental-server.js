@@ -5,5 +5,5 @@ var http        = require('http'),
 	   server;
 
 
-var server = restful.createServer([fixtures.User, fixtures.RentalCar], { strict: false, explore: true });
+var server = restful.createServer([fixtures.User, fixtures.RentalLocation], { strict: false, explore: true });
 server.listen(8000);

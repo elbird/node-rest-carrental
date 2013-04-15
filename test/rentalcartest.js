@@ -2,7 +2,7 @@ var chai = require("chai"),
 	assert = chai.assert,
 	Q = require('q'),
 	fixtures = require('../lib/fixtures'),
-	RentalCar = fixtures.RentalCar,
+	RentalCar = fixtures.RentalCar,	
 	dfdTestCar = Q.defer();
 
 describe('RentalCar', function () {
