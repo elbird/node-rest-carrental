@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 var chai = require("chai"),
 	assert = chai.assert,
 	Q = require('q'),

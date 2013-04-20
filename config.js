@@ -6,7 +6,11 @@ var config = {
   		}
 	},
 	development: {},
-	test: {},
+	test: {
+		couchdb: {
+  			database: "carrental_test"
+  		}
+	},
 	production: {}
 };
 
